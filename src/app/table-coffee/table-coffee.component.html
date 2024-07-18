@@ -1,6 +1,15 @@
-<br>
-<h1>Coffee Table</h1>
 <div class="container-md container-fluid">
+	<div style="float: right">
+		<form>
+			<div class="mb-3 row">
+				<label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+				<div class="col-xs-3 col-sm-auto">
+					<input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+				</div>
+			</div>
+		</form>
+	</div>
+
 	<!--Table-->
 	<table class="table table-hover">
 		<!-- Columns -->
@@ -15,14 +24,19 @@
 		</thead>
 	<!-- Columns -->
 	<!-- Data -->
-		<tbody *ngFor="let data of coffeeData |  paginate: { itemsPerPage: 10, currentPage: p }">
+		<tbody >
+			@for (data of coffeeObj | async; track data.roaster; let i = $index) {
 			<tr (click)="checkExpanded(data)">
 				<td> {{data.id}}</td>
 				<td> {{data.roaster}} </td>
 				<td> {{data.size}} </td>
 				<td> {{data.format}} </td>
 				<td><button class="btn btn-outline-secondary btn-sm"  (click)="getDetailsFromCoffee(data)"><i class="bi bi-info-circle-fill"> Details</i></button></td>
-			</tr>
+			</tr>} @empty {
+				<tr>
+					<td colspan="4" style="text-align: center">No roaster</td>
+				</tr>
+			}
 		</tbody>
 		<!-- Data -->
 	</table>

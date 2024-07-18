@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { NgClass, NgForOf, NgIf, NgSwitchCase } from '@angular/common';
+import { Component, EventEmitter, OnInit, Output, PipeTransform } from '@angular/core';
+import { AsyncPipe, DecimalPipe, NgClass, NgForOf, NgIf, NgSwitchCase } from '@angular/common';
 import { CoffeeDataService } from '../services/coffee-data.service';
 import { Coffee } from '../common/coffee-model';
 import { CoffeeHttpService } from '../services/coffee-http.service';
@@ -7,7 +7,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CoffeeFormComponent } from '../coffee-form/coffee-form.component';
 import { DeleteCoffeeComponent } from '../delete-coffee/delete-coffee.component';
 import { DetailsViewCoffeeComponent } from '../details-view-coffee/details-view-coffee.component';
-import { map } from 'rxjs';
+import { map, Observable, of, startWith } from 'rxjs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-table-coffee',
@@ -21,21 +23,28 @@ import { map } from 'rxjs';
 		DeleteCoffeeComponent,
 		NgSwitchCase,
 		DetailsViewCoffeeComponent,
+		ReactiveFormsModule,DecimalPipe, AsyncPipe, ReactiveFormsModule, NgbHighlight
 	],
   templateUrl: './table-coffee.component.html',
-  styleUrl: './table-coffee.component.css'
+  styleUrl: './table-coffee.component.css',
+	providers: [DecimalPipe],
 })
 export class TableCoffeeComponent implements OnInit{
 	p=0;
 	coffeeRow?:Coffee;
 
 	coffeeData! : Coffee[];
-	constructor(private coffeeService: CoffeeDataService, private coffeeHttp: CoffeeHttpService) {
+	coffeeObj! : Observable<Coffee[]>
+	filter = new FormControl('', { nonNullable: true });
+	@Output() iDFromTable = new EventEmitter<string>();
+
+	constructor(private coffeeService: CoffeeDataService, private coffeeHttp: CoffeeHttpService,pipe: DecimalPipe) {
+		this.coffeeObj = this.filter.valueChanges.pipe(
+			startWith(''),
+			map((text) => this.search(text, pipe)),
+		);
 	}
 	ngOnInit() {
-		// this.coffeeData = this.coffeeService.getAllCoffee();
-		//
-		// console.log(this.coffeeData);
 		this.coffeeHttp.getAllCoffees().pipe(
 			map(c =>
 				c.filter( r => r.active )
@@ -46,8 +55,11 @@ export class TableCoffeeComponent implements OnInit{
 					this.coffeeData.sort((a, b) =>
 						a.id < b.id ? -1 : 1
 					);
+					this.coffeeObj = of(this.coffeeData);
+
 			}
 			})
+
 	}
 
 expanded: boolean =false;
@@ -85,6 +97,21 @@ expanded: boolean =false;
 		return this.coffeeData.find(x=>x.id==id);
 	}
 
-	@Output() iDFromTable = new EventEmitter<string>();
+	search(text: string, pipe: PipeTransform): Observable<Coffee[]> {
+		console.log(text)
+		// return this.coffeeData.filter((coffee) => {
+		// 	const term = text.toLowerCase();
+		// 	return (
+		// 		coffee.roaster.toLowerCase().includes(term)
+		// 	);
+		// });
+		this.coffeeObj.pipe(map(cd =>{cd.filter(coffee => coffee.roaster === text)}))
+			.subscribe({next:(data: any)=> {this.coffeeData = data},complete:()=>{}})
+
+		return this.coffeeObj
+
+	}
+
+
 
 }
