@@ -6,7 +6,7 @@
 		<!-- Columns -->
 		<thead>
 			<tr>
-				<th> Id </th>
+				<th><span *ngIf="sortingColumn('Id')">{{sortIcon}}</span>Id</th>
 				<th> Name </th>
 				<th> Roast </th>
 				<th> Format </th>

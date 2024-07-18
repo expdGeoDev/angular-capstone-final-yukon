@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CoffeeFormComponent } from '../coffee-form/coffee-form.component';
 import { DeleteCoffeeComponent } from '../delete-coffee/delete-coffee.component';
 import { DetailsViewCoffeeComponent } from '../details-view-coffee/details-view-coffee.component';
+import { SortingInterface } from '../sorting-interface';
 import { map } from 'rxjs';
 import { ToastModule } from 'primeng/toast';
 import { CoffeeDataService } from '../services/coffee-data.service';
@@ -35,16 +36,18 @@ export class TableCoffeeComponent implements OnInit, OnChanges{
 	p=0;
 	coffeeRow?:Coffee;
 	coffeeData! : Coffee[];
+	sortIcon='▼'
+	sorting:SortingInterface = {
+		column:'Id',
+		order:'desc'
+}
+	constructor(private coffeeService: CoffeeDataService, private coffeeHttp: CoffeeHttpService) {
 	optionModal: number = 0;
 	title: any;
 	@Output() iDFromTable = new EventEmitter<string>();
 	@Input() updateObs?: boolean;
 	@Output() updateObsChange = new EventEmitter<boolean>();
 
-
-	constructor(
-		private coffeeHttp: CoffeeHttpService
-	) {}
 
 	ngOnChanges(changes: SimpleChanges) {
 		console.log(this.updateObs);
@@ -104,6 +107,25 @@ export class TableCoffeeComponent implements OnInit, OnChanges{
 				,error: err => {}
 				,complete: () => {this.getData()}
 			});
+	}
+
+	sortingColumn(column:string){
+		if(this.sortIcon =='▼'){
+			this.sortIcon= '▲';
+			return this.sorting.column===column && this.sorting.order ==='desc'
+		}else {
+			this.sortIcon= '▼';
+			return this.sorting.column===column && this.sorting.order ==='desc'
+		}
+	}
+
+	fetchData(){
+		this.coffeeHttp.getAllCoffees().subscribe(
+			{next:(data)=>{
+					this.coffeeData = data
+					console.log(this.coffeeData);
+				}
+			})
 	}
 
 	getData(){
