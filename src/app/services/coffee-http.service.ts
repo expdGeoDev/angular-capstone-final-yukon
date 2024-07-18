@@ -4,6 +4,8 @@ import { environment } from '../env/env';
 import { Coffee } from "../common/coffee-model";
 import { Observable } from 'rxjs';
 
+/// JOHN this is the file
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,16 +20,19 @@ export class CoffeeHttpService {
   constructor(private client: HttpClient) {}
 
 	getAllCoffees(): Observable<Coffee[]>{
+
 		return this.client
 			.get<Coffee[]>(`${environment.restClientUrl}/coffees`);
 	}
 
 	getCoffeeById(id: number): Observable<Coffee>{
+
 		return this.client
 			.get<Coffee>(`${environment.restClientUrl}/coffees/${id}`)
 	}
 
 	addNewCoffee(coffee: Coffee): Observable<Coffee> {
+
 		return this.client
 			.post<Coffee>(
 				`${environment.restClientUrl}/coffees`,
@@ -37,6 +42,7 @@ export class CoffeeHttpService {
 	}
 
 	updateCoffee(toUpdate: Coffee): Observable<Coffee>{
+
 		return this.client.put<Coffee>(
 			`${environment.restClientUrl}/coffees/${toUpdate.id}`,
 			JSON.stringify(toUpdate),
@@ -45,6 +51,7 @@ export class CoffeeHttpService {
 	}
 
 	deleteCoffee(id: number): Observable<void>{
+
 		return this.client
 			.delete<void>(`${environment.restClientUrl}/coffees/${id}`)
 	}
