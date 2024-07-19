@@ -28,7 +28,7 @@
     },
     {
       "id": 3,
-      "active": false,
+      "active": true,
       "roaster": "Paper Plane",
       "variety": null,
       "size": 8,
@@ -41,7 +41,7 @@
     },
     {
       "id": 4,
-      "active": false,
+      "active": true,
       "roaster": "Paper Plane",
       "variety": null,
       "size": 14,
@@ -80,7 +80,7 @@
     },
     {
       "id": 7,
-      "active": false,
+      "active": true,
       "roaster": "Pilon",
       "variety": null,
       "size": 8,
