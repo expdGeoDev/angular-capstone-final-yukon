@@ -7,6 +7,8 @@ import { CoffeeFormComponent } from '../coffee-form/coffee-form.component';
 import { DeleteCoffeeComponent } from '../delete-coffee/delete-coffee.component';
 import { DetailsViewCoffeeComponent } from '../details-view-coffee/details-view-coffee.component';
 import { map } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { CoffeeDataService } from '../services/coffee-data.service';
 
 @Component({
   selector: 'app-table-coffee',
@@ -21,6 +23,7 @@ import { map } from 'rxjs';
 		NgSwitchCase,
 		NgSwitch,
 		DetailsViewCoffeeComponent,
+		ToastModule,
 	],
   templateUrl: './table-coffee.component.html',
   styleUrl: './table-coffee.component.css'
@@ -34,25 +37,15 @@ export class TableCoffeeComponent implements OnInit{
 	coffeeData! : Coffee[];
 	optionModal: number = 0;
 	title: any;
+	@Output() iDFromTable = new EventEmitter<string>();
+
 
 	constructor(
 		private coffeeHttp: CoffeeHttpService
 	) {}
 
 	ngOnInit() {
-
-		this.coffeeHttp.getAllCoffees().pipe(
-			map(c =>
-				c.filter( r => r.active )
-			)
-		).subscribe(
-				{next:(data)=>{
-					this.coffeeData = data;
-					this.coffeeData.sort((a, b) =>
-						a.id < b.id ? -1 : 1
-					);
-				}
-				})
+		this.getData();
 	}
 
 	expanded: boolean =false;
@@ -94,6 +87,31 @@ export class TableCoffeeComponent implements OnInit{
 		return this.coffeeData.find(x=>x.id===id);
 	}
 
-	@Output() iDFromTable = new EventEmitter<string>();
+	changeActivation(coffee: Coffee){
+		console.log(coffee);
+		coffee.active = false;
+		this.coffeeHttp.updateCoffee(coffee)
+			.subscribe({
+				next: d=>{}
+				,error: err => {}
+				,complete: () => {this.getData()}
+			});
+	}
+
+	getData(){
+		this.coffeeHttp.getAllCoffees()
+			.pipe(
+				map(c =>
+					c.filter( r => r.active )
+				)
+			)
+			.subscribe(
+				{next:(data)=>{
+						this.coffeeData = data;
+					}
+				})
+	}
+
+
 
 }

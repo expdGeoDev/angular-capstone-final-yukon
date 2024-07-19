@@ -41,7 +41,7 @@
     },
     {
       "id": 4,
-      "active": true,
+      "active": false,
       "roaster": "Paper Plane",
       "variety": null,
       "size": 14,
@@ -54,7 +54,7 @@
     },
     {
       "id": 5,
-      "active": false,
+      "active": true,
       "roaster": "Eight O'Clock",
       "variety": null,
       "size": 24,
@@ -80,7 +80,7 @@
     },
     {
       "id": 7,
-      "active": true,
+      "active": false,
       "roaster": "Pilon",
       "variety": null,
       "size": 8,
@@ -93,7 +93,7 @@
     },
     {
       "id": 8,
-      "active": false,
+      "active": true,
       "roaster": "Counter Culture",
       "variety": null,
       "size": 16,

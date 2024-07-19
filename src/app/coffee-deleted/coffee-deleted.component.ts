@@ -4,6 +4,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Coffee } from '../common/coffee-model';
 import { CoffeeHttpService } from '../services/coffee-http.service';
 import { map } from 'rxjs';
+import { ToastsService } from '../services/toasts.service';
 
 @Component({
   selector: 'app-coffee-deleted',
@@ -13,7 +14,8 @@ import { map } from 'rxjs';
 		NgxPaginationModule,
 	],
   templateUrl: './coffee-deleted.component.html',
-  styleUrl: './coffee-deleted.component.css'
+  styleUrl: './coffee-deleted.component.css',
+	providers: [ToastsService]
 })
 export class CoffeeDeletedComponent implements OnInit{
 	p=0;
