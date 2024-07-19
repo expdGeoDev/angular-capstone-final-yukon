@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase } from '@angular/common';
 import { Coffee, FormType } from '../common/coffee-model';
 import { CoffeeHttpService } from '../services/coffee-http.service';
@@ -28,7 +28,7 @@ import { CoffeeDataService } from '../services/coffee-data.service';
   templateUrl: './table-coffee.component.html',
   styleUrl: './table-coffee.component.css'
 })
-export class TableCoffeeComponent implements OnInit{
+export class TableCoffeeComponent implements OnInit, OnChanges{
 
 	FormType = FormType
 
@@ -38,11 +38,19 @@ export class TableCoffeeComponent implements OnInit{
 	optionModal: number = 0;
 	title: any;
 	@Output() iDFromTable = new EventEmitter<string>();
+	@Input() updateObs?: boolean;
+	@Output() updateObsChange = new EventEmitter<boolean>();
 
 
 	constructor(
 		private coffeeHttp: CoffeeHttpService
 	) {}
+
+	ngOnChanges(changes: SimpleChanges) {
+		console.log(this.updateObs);
+		this.getData();
+		this.updateObsChange.emit(false);
+	}
 
 	ngOnInit() {
 		this.getData();

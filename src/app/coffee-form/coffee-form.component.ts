@@ -3,6 +3,7 @@ import { CoffeeHttpService } from '../services/coffee-http.service';
 import { Coffee, FormType } from '../common/coffee-model';
 import { FormsModule } from '@angular/forms';
 import { NgForOf, TitleCasePipe } from '@angular/common';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-coffee-form',
@@ -73,7 +74,7 @@ export class CoffeeFormComponent implements OnInit {
 	}
 
 	addNewCoffee():void {
-
+		console.log(this.coffee)
 		this.service
 			.addNewCoffee(this.coffee)
 			.subscribe(() => {
