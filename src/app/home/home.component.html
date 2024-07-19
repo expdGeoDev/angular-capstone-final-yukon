@@ -1,6 +1,7 @@
 <div class="container">
 	<button type="button" class="btn btn-primary me-2" (click)="openModal(1)">Add Coffee</button>
 </div>
+<br>
 <div class="container">
 	<app-table-coffee (iDFromTable)="title = $event" [updateObs]="updateObs" (updateObsChange)="updateObsC($event)"></app-table-coffee>
 	<div class="modal" id="myModal">
