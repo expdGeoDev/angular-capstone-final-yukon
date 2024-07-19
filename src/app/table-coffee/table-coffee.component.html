@@ -6,10 +6,10 @@
 		<!-- Columns -->
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th> Name </th>
-				<th> Roast </th>
-				<th> Format </th>
+				<th scope="col" sortable="id" (sort)="onSort($event)">{{directionHTMLId}} Id</th>
+				<th scope="col" sortable="roaster" (sort)="onSort($event)">{{directionHTMLName}} Name </th>
+				<th scope="col" sortable="roast" (sort)="onSort($event)">{{directionHTMLRoast}} Roast </th>
+				<th scope="col" sortable="format" (sort)="onSort($event)">{{directionHTMLFormat}} Format </th>
 				<th>Options</th>
 				<th>Actions</th>
 			</tr>
@@ -20,7 +20,7 @@
 			<tr>
 				<td> {{data.id}}</td>
 				<td> {{data.roaster}} </td>
-				<td> {{data.size}} </td>
+				<td> {{data.roast}} </td>
 				<td> {{data.format}} </td>
 				<td>
 					<button class="btn btn-outline-secondary btn-sm"
