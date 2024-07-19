@@ -3,15 +3,15 @@
     {
       "id": 1,
       "active": true,
-      "roaster": "Tim Horton's23",
-      "variety": "ddeee",
-      "size": 20,
+      "roaster": "Tim Horton's23rr",
+      "variety": "ddeeerrr",
+      "size": "14",
       "roast": "dark",
       "format": "k-pod",
       "grind": 4,
       "origin": "gty",
       "singleOrigin": false,
-      "tastingNotes": "ffre"
+      "tastingNotes": "ffrerrr"
     },
     {
       "id": 2,
@@ -13571,6 +13571,19 @@
       "origin": "fff",
       "singleOrigin": false,
       "tastingNotes": "ttt"
+    },
+    {
+      "id": 1134,
+      "active": true,
+      "roaster": "treat",
+      "variety": "fres",
+      "size": "14",
+      "roast": "dark",
+      "format": "k-pod",
+      "grind": 2,
+      "origin": "dee",
+      "singleOrigin": true,
+      "tastingNotes": "ddd"
     }
   ]
 }
