@@ -75,16 +75,14 @@ export class TableCoffeeComponent implements OnInit, OnChanges{
 		column:'Id',
 		order:'desc'
 }
-	constructor(private coffeeService: CoffeeDataService, private coffeeHttp: CoffeeHttpService) {
+	constructor(private coffeeService: CoffeeDataService, private coffeeHttp: CoffeeHttpService) {}
 	optionModal: number = 0;
 	title: any;
 	directionHTMLId:string = "";
 	directionHTMLName:string = "";
 	directionHTMLRoast:string = "";
 	directionHTMLFormat:string = "";
-	constructor(
-		private coffeeHttp: CoffeeHttpService
-	) {}
+
 	@Output() iDFromTable = new EventEmitter<string>();
 	@Input() updateObs?: boolean;
 	@Output() updateObsChange = new EventEmitter<boolean>();
