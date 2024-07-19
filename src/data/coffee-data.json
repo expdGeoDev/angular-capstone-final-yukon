@@ -16,15 +16,15 @@
     {
       "id": 2,
       "active": true,
-      "roaster": "Tim Horton's",
-      "variety": null,
-      "size": 20,
+      "roaster": "Tim Horton's433",
+      "variety": "ggg",
+      "size": "14",
       "roast": "dark",
       "format": "k-pod",
       "grind": 4,
-      "origin": null,
-      "singleOrigin": false,
-      "tastingNotes": null
+      "origin": "fff",
+      "singleOrigin": true,
+      "tastingNotes": "ggg"
     },
     {
       "id": 3,
@@ -13558,6 +13558,19 @@
       "origin": "kky",
       "singleOrigin": true,
       "tastingNotes": "ss"
+    },
+    {
+      "id": 1133,
+      "active": true,
+      "roaster": "fre",
+      "variety": "ddd",
+      "size": "16",
+      "roast": "espresso",
+      "format": "ground",
+      "grind": 2,
+      "origin": "fff",
+      "singleOrigin": false,
+      "tastingNotes": "ttt"
     }
   ]
 }
