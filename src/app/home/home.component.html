@@ -1,9 +1,8 @@
 <div class="container">
 	<button type="button" class="btn btn-primary me-2" (click)="openModal(1)">Add Coffee</button>
-	<button type="button" class="btn btn-primary me-2"  (click)="openModal(2)">Delete</button>
 </div>
 <div class="container">
-	<app-table-coffee (iDFromTable)="title = $event" ></app-table-coffee>
+	<app-table-coffee (iDFromTable)="title = $event" [updateObs]="updateObs" (updateObsChange)="updateObsC($event)"></app-table-coffee>
 	<div class="modal" id="myModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -17,7 +16,7 @@
 						<app-coffee-form *ngSwitchCase=1
 												     [title] = "title"
 												     [formType]="FormType.ADD"
-														 (formCompleted) = "closeModal()"
+														 (formCompleted) = "closeModalCom()"
 						></app-coffee-form>
 					</ng-container>
 				</div>

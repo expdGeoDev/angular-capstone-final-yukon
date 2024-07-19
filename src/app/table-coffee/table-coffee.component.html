@@ -1,5 +1,5 @@
-<br>
-<h1>Coffee Table</h1>
+
+
 <div class="container-md container-fluid">
 	<!--Table-->
 	<table class="table table-hover">
@@ -11,12 +11,13 @@
 				<th> Roast </th>
 				<th> Format </th>
 				<th>Options</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 	<!-- Columns -->
 	<!-- Data -->
 		<tbody *ngFor="let data of coffeeData |  paginate: { itemsPerPage: 10, currentPage: p }">
-			<tr (click)="checkExpanded(data)">
+			<tr>
 				<td> {{data.id}}</td>
 				<td> {{data.roaster}} </td>
 				<td> {{data.size}} </td>
@@ -24,13 +25,17 @@
 				<td>
 					<button class="btn btn-outline-secondary btn-sm"
 									(click)="getDetailsFromCoffee(data, 1)">
-									<i class="bi bi-info-circle-fill"> Details</i>
+						<i class="bi bi-info-circle-fill"> Details</i>
 					</button>
 					<button class="btn btn-outline-secondary btn-sm"
 									(click)="getDetailsFromCoffee(data, 2)">
-									<i class="bi bi-info-circle-fill"> Edit</i>
+						<i class="bi bi-info-circle-fill"> Edit</i>
 					</button>
 				</td>
+				<td><div class="form-check form-switch">
+					<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [checked]="data.active" (change)="changeActivation(data)">
+					<label class="form-check-label" for="flexSwitchCheckDefault">{{data.active}}</label>
+				</div></td>
 			</tr>
 		</tbody>
 		<!-- Data -->

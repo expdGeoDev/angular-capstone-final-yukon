@@ -1,4 +1,4 @@
-import { Component, Output } from '@angular/core';
+import { Component, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CoffeeFormComponent } from '../coffee-form/coffee-form.component';
 import { DeleteCoffeeComponent } from '../delete-coffee/delete-coffee.component';
 import { NgSwitch, NgSwitchCase } from '@angular/common';
@@ -23,11 +23,14 @@ export class HomeComponent {
 	protected readonly FormType = FormType;
 
 	title = 'angular-capstone';
-	optionModal=0;
+	optionModal = 0;
 	option = '';
-	titleModal='';
+	titleModal = '';
+	updateObs = false;
+	updateObsChange= false	;
 
-	openModal(op:number) {
+
+	openModal(op: number) {
 
 		const modelDiv = document.getElementById('myModal');
 		if (modelDiv != null) {
@@ -42,12 +45,21 @@ export class HomeComponent {
 		}
 	}
 
-	closeModal(){
+	closeModal() {
 
-		const modelDiv= document.getElementById('myModal');
-		if(modelDiv != null){
-			modelDiv.style.display='none';
+		const modelDiv = document.getElementById('myModal');
+		if (modelDiv != null) {
+			modelDiv.style.display = 'none';
 		}
+	}
+
+	closeModalCom(){
+		this.updateObs = true;
+		this.closeModal()
+	}
+
+	updateObsC(event: Boolean){
+		this.updateObs = false;
 	}
 
 }
